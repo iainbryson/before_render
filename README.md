@@ -47,4 +47,4 @@ Provided methods:
 - Tests should not throw runtime error(happening right now if comment one of provided aliased methods)
 
 ## Author
-Copyright (c) 2013 Nilesh Chaudhari, released under the MIT license
+Copyright (c) 2013 Nilesh Chaudhari, released under the MIT license. Plugin heavily based on Vladimir Penkin's rails3_before_render which in turn is based on before_filter for Rails 2 by Todd Willey.
