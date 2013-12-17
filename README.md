@@ -1,4 +1,4 @@
-Rails3 Before Render  [![Build Status](https://secure.travis-ci.org/shell/rails3_before_render.png)](https://secure.travis-ci.org/shell/rails3_before_render.png) [![Code Climate](https://codeclimate.com/github/shell/rails3_before_render.png)](https://codeclimate.com/github/shell/rails3_before_render)
+Before Render  
 ===========================
 
 ## Introduction
@@ -6,7 +6,7 @@ Rails3 Before Render  [![Build Status](https://secure.travis-ci.org/shell/rails3
 when your action is completed and the template is rendered.  It can really
 DRY up loading some data that is used for views (headers / layouts / etc).
 
-  Plugin was inspired by before_render by Todd Willey, which works for rails2 only. New *ActiveSupport::Callbacks* methods were used, in analogy with ActionDispatch.
+  Plugin heavily based on Vladimir Penkin's rails3_before_render which in turn is based on before_filter for Rails 2 by Todd Willey. 
 
 Provided methods:
 
@@ -16,9 +16,9 @@ Provided methods:
    
 ## Installation       
   
-    gem 'rails3_before_render'
+    gem 'before_render'
   
-  Warning: Rails 3 only. Rails2 users can use [before_render](<https://github.com/xtoddx/before_render>) by Todd Willey.
+  Warning: Rails 4 only. 
  
 ## Usage
   before_render / prepend\_before\_render / skip\_before\_render works as other filters. Options like :except and :only can be passed to filter.
@@ -47,6 +47,4 @@ Provided methods:
 - Tests should not throw runtime error(happening right now if comment one of provided aliased methods)
 
 ## Author
-Copyright (c) 2011 Vladimir Penkin, released under the MIT license
-
-Thanks to Drake Wilson (@menostos) for initiative to convert this to ruby gem.
+Copyright (c) 2013 Nilesh Chaudhari, released under the MIT license
