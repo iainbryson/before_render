@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'rake'
-gem 'activesupport', '>=3.0.0'
+gem 'activesupport', '>=4.0.0'
 
 group :test do
-  gem 'actionpack', '>=3.0.0'
+  gem 'actionpack', '>=4.0.0'
 end
