@@ -8,7 +8,7 @@ module Rails3BeforeRender
     end
 
     def render_with_before_render_filter *opts, &blk
-      run_callbacks :render, action_name do
+      run_callbacks :render do
         render_without_before_render_filter(*opts, &blk)
       end
     end
