@@ -14,4 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "before_render"
   gem.require_paths = ["lib"]
   gem.version       = BeforeRender::VERSION
+
+  gem.add_dependency 'rails', '~> 4.0'
 end
