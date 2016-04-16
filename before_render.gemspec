@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.name          = "rails4_before_render"
+  gem.name          = "before_render"
   gem.require_paths = ["lib"]
   gem.version       = BeforeRender::VERSION
   gem.licenses      = ["MIT"]
