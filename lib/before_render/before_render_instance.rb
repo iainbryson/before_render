@@ -1,19 +1,24 @@
+require 'action_controller'
+
 module Rails5BeforeRender
     module BeforeRenderInstance
         extend ActiveSupport::Concern
 
         included do
-            alias_method_chain :render, :before_render_filter
-            define_callbacks :render
+            define_callbacks :render, skip_after_callbacks_if_terminated: true,
+                             terminator: ->(controller, lambda) do
+                                 lambda.call if lambda.is_a?(Proc)
+                                 controller.performed?
+                             end
         end
 
-        def render_with_before_render_filter *opts, &blk
+        def render(*opts, &blk)
             run_callbacks :render do
-                render_without_before_render_filter(*opts, &blk)
+                super(*opts, &blk)
             end
         end
 
     end
 end
 
-ActionController::Base.send :include,  Rails5BeforeRender::BeforeRenderInstance
+ActionController::Base.send :prepend, Rails5BeforeRender::BeforeRenderInstance
