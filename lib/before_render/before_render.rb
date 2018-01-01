@@ -3,6 +3,7 @@ require 'action_controller'
 module Rails5BeforeRender
     module BeforeRender
         extend ActiveSupport::Concern
+        include ActiveSupport::Callbacks
 
         included do
             define_callbacks :render
@@ -36,4 +37,4 @@ module Rails5BeforeRender
     end
 end
 
-AbstractController::Callbacks.include Rails5BeforeRender::BeforeRender
+AbstractController::Base.include Rails5BeforeRender::BeforeRender
