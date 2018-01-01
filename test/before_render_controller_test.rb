@@ -1,9 +1,9 @@
 require 'test_helper'
 
 class SampleController < ActionController::Base
+    before_action :action_one
+    after_action :action_three
     if ActionController::Base.respond_to?(:before_render)
-        before_filter :action_one
-        after_filter :action_three
         before_render :action_two, :except => [:new]
     end
     if ActionController::Base.respond_to?(:skip_before_render)
@@ -15,10 +15,12 @@ class SampleController < ActionController::Base
 
     attr_accessor :actions
 
-    def index;  render :text => ''; end
-    def new;    render :text => ''; end
-    def show;   render :text => ''; end
-    def update; render :text => ''; end
+    def index
+        render :plain => ''
+    end
+    def new;    render :plain => ''; end
+    def show;   render :plain => ''; end
+    def update; render :plain => ''; end
 
     def reset_actions
         @actions = ''
@@ -47,41 +49,41 @@ class SampleControllerTest < ActionController::TestCase
     def test_before_render_in_place
         with_routing do |set|
             set.draw do
-                match ':controller(/:action)'
+                get ':controller(/:action)'
             end
             process :index
         end
-        assert_equal @controller.actions, 'abc'
+        assert_equal 'abc', @controller.actions
     end
 
     def test_before_render_except_option
         with_routing do |set|
             set.draw do
-                match ':controller(/:action)'
+                get ':controller(/:action)'
             end
             process :new
         end
-        assert_equal @controller.actions, 'ac'
+        assert_equal 'ac', @controller.actions
     end
 
     def test_skip_before_render
         with_routing do |set|
             set.draw do
-                match ':controller(/:action)'
+                get ':controller(/:action)'
             end
             process :show
         end
-        assert_equal @controller.actions, 'ac'
+        assert_equal 'ac', @controller.actions
     end
 
     def test_prepend_before_render
         with_routing do |update|
             set.draw do
-                match ':controller(/:action)'
+                get ':controller(/:action)'
             end
             process :update
         end
-        assert_equal @controller.actions, 'bac'
+        assert_equal 'bac', @controller.actions
     end
 
 end

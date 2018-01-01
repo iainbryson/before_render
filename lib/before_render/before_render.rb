@@ -4,6 +4,10 @@ module Rails5BeforeRender
     module BeforeRender
         extend ActiveSupport::Concern
 
+        included do
+            define_callbacks :render
+        end
+
         module ClassMethods
             def append_before_render_filter(*names, &blk)
                 _insert_callbacks(names, blk) do |name, options|
@@ -32,4 +36,4 @@ module Rails5BeforeRender
     end
 end
 
-AbstractController::Base.send :include, Rails5BeforeRender::BeforeRender
+AbstractController::Callbacks.include Rails5BeforeRender::BeforeRender

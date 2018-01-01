@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class BeforeRenderTest < Test::Unit::TestCase
+class BeforeRenderTest < Minitest::Test
 
     def test_before_render
         assert ActionController::Base.respond_to?(:before_render)
