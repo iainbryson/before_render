@@ -4,23 +4,21 @@ class SampleController < ActionController::Base
     before_action :action_one
     after_action :action_three
     if ActionController::Base.respond_to?(:before_render)
-        before_render :action_two, :except => [:new]
+        before_render :action_two_a, :except => [:new]
     end
     if ActionController::Base.respond_to?(:skip_before_render)
-        skip_before_render :action_two, :only => [:show]
+        skip_before_render :action_two_a, :only => [:show]
     end
     if ActionController::Base.respond_to?(:prepend_before_render)
-        prepend_before_render :action_two, :only => [:update]
+        prepend_before_render :action_two_b, :only => [:update]
     end
 
     attr_accessor :actions
 
-    def index
-        render :plain => ''
-    end
-    def new;    render :plain => ''; end
-    def show;   render :plain => ''; end
-    def update; render :plain => ''; end
+    def index;  render :plain => 'index'; end
+    def new;    render :plain => 'new'; end
+    def show;   render :plain => 'show'; end
+    def update; render :plain => 'update'; end
 
     def reset_actions
         @actions = ''
@@ -30,8 +28,11 @@ class SampleController < ActionController::Base
     def action_one
         @actions << 'a'
     end
-    def action_two
+    def action_two_a
         @actions << 'b'
+    end
+    def action_two_b
+        @actions << 'B'
     end
     def action_three
         @actions << 'c'
@@ -49,7 +50,7 @@ class SampleControllerTest < ActionController::TestCase
     def test_before_render_in_place
         with_routing do |set|
             set.draw do
-                get ':controller(/:action)'
+                get 'sample/index'
             end
             process :index
         end
@@ -59,7 +60,7 @@ class SampleControllerTest < ActionController::TestCase
     def test_before_render_except_option
         with_routing do |set|
             set.draw do
-                get ':controller(/:action)'
+                get 'sample/new'
             end
             process :new
         end
@@ -69,7 +70,7 @@ class SampleControllerTest < ActionController::TestCase
     def test_skip_before_render
         with_routing do |set|
             set.draw do
-                get ':controller(/:action)'
+                get 'sample/show'
             end
             process :show
         end
@@ -78,12 +79,12 @@ class SampleControllerTest < ActionController::TestCase
 
     def test_prepend_before_render
         with_routing do |update|
-            set.draw do
-                get ':controller(/:action)'
+            update.draw do
+                get 'sample/update'
             end
             process :update
         end
-        assert_equal 'bac', @controller.actions
+        assert_equal 'aBbc', @controller.actions
     end
 
 end

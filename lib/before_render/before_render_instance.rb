@@ -12,4 +12,4 @@ module Rails5BeforeRender
     end
 end
 
-AbstractController::Base.prepend Rails5BeforeRender::BeforeRenderInstance
+ActionController::Base.prepend Rails5BeforeRender::BeforeRenderInstance

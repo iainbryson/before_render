@@ -6,7 +6,9 @@ module Rails5BeforeRender
         include ActiveSupport::Callbacks
 
         included do
-            define_callbacks :render
+            define_callbacks :render,
+                             terminator: ->(controller, result_lambda) { result_lambda.call if result_lambda.is_a?(Proc); controller.performed? },
+                             skip_after_callbacks_if_terminated: true
         end
 
         module ClassMethods
@@ -37,4 +39,4 @@ module Rails5BeforeRender
     end
 end
 
-AbstractController::Base.include Rails5BeforeRender::BeforeRender
+ActionController::Base.include Rails5BeforeRender::BeforeRender
