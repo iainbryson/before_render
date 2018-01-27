@@ -1,19 +1,15 @@
-module Rails3BeforeRender
-  module BeforeRenderInstance
-    extend ActiveSupport::Concern
+require 'action_controller'
 
-    included do
-      alias_method_chain :render, :before_render_filter
-      define_callbacks :render
+module Rails5BeforeRender
+    module BeforeRenderInstance
+
+        def render(*args, &blk)
+            run_callbacks :render do
+                super
+            end
+        end
+
     end
-
-    def render_with_before_render_filter *opts, &blk
-      run_callbacks :render do
-        render_without_before_render_filter(*opts, &blk)
-      end
-    end
-
-  end
 end
 
-ActionController::Base.send :include,  Rails3BeforeRender::BeforeRenderInstance
+ActionController::Base.prepend Rails5BeforeRender::BeforeRenderInstance
