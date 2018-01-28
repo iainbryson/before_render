@@ -17,7 +17,7 @@ Provided methods:
    
 ## Installation       
   
-    gem 'rails4_before_render'
+    gem 'rails5_before_render'
   
 Warning: Rails 5 only. 
  
